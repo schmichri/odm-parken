@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Open Data Mannheim - Parken</title>
+    <style>
+        html, body, #map {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script>
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(49.4890669,8.4678931);
+            var mapOptions = {
+                zoom: 15,
+                center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            
+            var geocoder = new google.maps.Geocoder();
+            var marker;
+            $.getJSON('/data.json', function (data) {
+                $.each( data, function (i, location){
+                    if("location" in location) {
+                        var marker = new google.maps.Marker({
+                            position: location.location,
+                            map: map,
+                            title: location.name,
+                            icon: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1|0|FF0000|12|_|' + location.free
+                        });
+
+                        var contentString = "<h1>" + location.name + "</h1><p><b>Freie Plätze:</b> " + location.free + "</p>";
+
+                        var infowindow = new google.maps.InfoWindow({
+                          content: contentString
+                        });
+
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.open(map,marker);
+                        });
+
+                    }
+                });
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>

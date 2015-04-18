@@ -2,10 +2,14 @@ var cheerio = require('cheerio');
 var request = require('request');
 var express = require('express');
 var app 	= express();
+var geo 	= require('./geo.json');
 
 var locs = Array();
 
-app.get('/data.json', function(req, res) {
+app.get('/', function (req, res) {
+	res.sendFile(__dirname + '/index.html');
+});
+app.get('/data.json', function (req, res) {
   res.send(locs);
 });
 
@@ -33,9 +37,10 @@ function getData(){
 				temp[i]["free"] = free;
 			});
 
-			// Add current timestamp
+			// Add current timestamp and Location
 			temp.forEach(function(location, i){
 				temp[i]["timestamp"] = new Date();
+				temp[i]["location"] = geo[temp[i].name];
 			});
 
 			locs = temp;

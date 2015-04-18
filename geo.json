@@ -1,0 +1,90 @@
+{
+  "C1 Hauptverwaltung MPB, Parkhaus": {
+    "lat": 49.4869073,
+    "lng": 8.4643374
+  },
+  "Collini-Center, Tiefgarage": {
+    "lat": 49.4907435,
+    "lng": 8.4760138
+  },
+  "Collini-Center Mulde, Parkplatz": {
+    "lat": 49.4910974,
+    "lng": 8.4782087
+  },
+  "D3, Tiefgarage": {
+    "lat": 49.487812,
+    "lng": 8.463526
+  },
+  "D5 Reiß-Museum, Tiefgarage": {
+    "lat": 49.488393,
+    "lng": 8.462011
+  },
+  "G1 Marktplatz, Tiefgarage": {
+    "lat": 49.490057,
+    "lng": 8.467282
+  },
+  "H6, Tiefgarage": {
+    "lat": 49.492402,
+    "lng": 8.4639
+  },
+  "Klinikum, Tiefgarage": {
+    "lat": 49.4900519,
+    "lng": 8.4901095
+  },
+  "M4a, Parkplatz": {
+    "lat": 49.4844,
+    "lng": 8.466775
+  },
+  "Hauptbahnhof P1 , Tiefgarage": {
+    "lat": 49.4804565,
+    "lng": 8.4705167
+  },
+  "Hauptbahnhof P2, Parkhaus": {
+    "lat": 49.477775,
+    "lng": 8.473606
+  },
+  "Hauptbahnhof P3/P4, Parkhaus": {
+    "lat": 49.47947,
+    "lng": 8.4746705
+  },
+  "N1/N2 Stadthaus, Parkhaus": {
+    "lat": 49.485842,
+    "lng": 8.464592
+  },
+  "N6 Komfort, Parkhaus": {
+    "lat": 49.4847931,
+    "lng": 8.4702103
+  },
+  "N6 Standard, Parkhaus": {
+    "lat": 49.485001,
+    "lng": 8.469333
+  },
+  "Nationaltheater, Parkplatz": {
+    "lat": 49.488632,
+    "lng": 8.479102
+  },
+  "U2, Tiefgarage": {
+    "lat": 49.491536,
+    "lng": 8.471888
+  },
+  "Wasserturm, Tiefgarage": {
+    "lat": 49.4845647,
+    "lng": 8.4760609
+  },
+  "SAP Arena P1, Parkhaus": {
+    "lat": 49.460504,
+    "lng": 8.515974
+  },
+  "SAP Arena P2, Parkhaus": {
+    "lat": 49.462821,
+    "lng": 8.516004
+  },
+  "SAP Arena P3, Parkhaus": {
+    "lat": 49.4650779,
+    "lng": 8.522353
+  },
+  "Messe P6-P8, Parkplatz": {
+    "lat": 49.468215,
+    "lng": 8.521819
+  }
+}
