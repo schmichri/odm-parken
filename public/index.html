@@ -10,22 +10,20 @@
         }
         #logo {
             position: fixed;
-            top: 10px;
-            left: 10px;
+            top: 15px;
+            left: 50px;
         }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.8/mapbox.css' rel='stylesheet' />
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script>
+    $(function(){
         function initialize() {
-            var myLatlng = new google.maps.LatLng(49.4890669,8.4678931);
-            var mapOptions = {
-                zoom: 15,
-                center: myLatlng
-            }
-            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            L.mapbox.accessToken = 'pk.eyJ1Ijoic2lsc2hhIiwiYSI6InZwUUh4NVEifQ.anjxmt-7tZqeVtKhD5th4w';
+            // Create a map in the div #map
+            var map = L.mapbox.map('map', 'silsha.lp9meh6a');
             
-            var geocoder = new google.maps.Geocoder();
             var marker;
             $.getJSON('/data.json', function (data) {
                 $.each( data, function (i, location){
@@ -36,29 +34,32 @@
                             var color = "FFA500";
                         else 
                             var color = "00FF00";
-                        var marker = new google.maps.Marker({
-                            position: location.location,
-                            map: map,
-                            title: location.name,
-                            icon: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1|0|' + color + '|12|_|' + location.free
-                        });
 
-                        var contentString = "<h1>" + location.name + "</h1><p><b>Freie Plätze:</b> " + location.free + "</p>";
+                        L.mapbox.featureLayer({
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: [
+                                  location.location.lng,
+                                  location.location.lat 
+                                ]
+                            },
+                            properties: {
+                                title: location.name,
+                                description: 'Freie Plätze: ' + location.free,
+                                'marker-size': 'large',
+                                'marker-color': color,
 
-                        var infowindow = new google.maps.InfoWindow({
-                          content: contentString
-                        });
-
-                        google.maps.event.addListener(marker, 'click', function() {
-                            infowindow.open(map,marker);
-                        });
+                            }
+                        }).addTo(map);
 
                     }
                 });
             });
         }
 
-        google.maps.event.addDomListener(window, 'load', initialize);
+        initialize();
+        })
 
     </script>
 </head>
