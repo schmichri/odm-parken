@@ -25,11 +25,17 @@
             $.getJSON('/data.json', function (data) {
                 $.each( data, function (i, location){
                     if("location" in location) {
+                        if (location.free == 0)
+                            var color = "FF0000";
+                        else if (location.free <= 100)
+                            var color = "FFA500";
+                        else 
+                            var color = "00FF00";
                         var marker = new google.maps.Marker({
                             position: location.location,
                             map: map,
                             title: location.name,
-                            icon: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1|0|FF0000|12|_|' + location.free
+                            icon: 'https://chart.googleapis.com/chart?chst=d_map_spin&chld=1|0|' + color + '|12|_|' + location.free
                         });
 
                         var contentString = "<h1>" + location.name + "</h1><p><b>Freie Plätze:</b> " + location.free + "</p>";
