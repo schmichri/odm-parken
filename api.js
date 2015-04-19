@@ -6,9 +6,8 @@ var geo 	= require('./geo.json');
 
 var locs = Array();
 
-app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
-});
+app.use(express.static('public'));
+
 app.get('/data.json', function (req, res) {
   res.send(locs);
 });
