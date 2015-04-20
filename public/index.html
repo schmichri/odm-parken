@@ -33,6 +33,7 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script>
     $(function(){
+        var marker = Array();
         function initialize() {
             L.mapbox.accessToken = 'pk.eyJ1Ijoic2lsc2hhIiwiYSI6InZwUUh4NVEifQ.anjxmt-7tZqeVtKhD5th4w';
             // Create a map in the div #map
@@ -48,14 +49,13 @@
                         else 
                             var color = "00FF00";
 
-                        var marker = L.marker([
+                        marker[location.name] = L.marker([
                                   location.location.lat,
                                   location.location.lng 
                                 ],{
-                                    'icon': new L.NumberedDivIcon({number: location.free, color: color}),
-                                    'title': "derp"
+                                    'icon': new L.NumberedDivIcon({number: location.free, color: color})
                         }).addTo(map);
-                        marker.bindPopup('<h2>' + location.name + '</h2><p><b>Freie Plätze: </b> ' + location.free + '</p>');
+                        marker[location.name].bindPopup('<h2>' + location.name + '</h2><p><b>Freie Plätze: </b> ' + location.free + '</p>');
 
                     }
                 });
@@ -63,7 +63,25 @@
         }
 
         initialize();
-        })
+
+        var host = location.origin.replace(/^http/, 'ws')
+        var ws = new WebSocket(host);
+        ws.onmessage = function (event) {
+            var locations = JSON.parse(event.data);
+            $.each(locations, function(i, location){
+                if(marker[location.name]){
+                    if (location.free == 0)
+                        var color = "FF0000";
+                    else if (location.free <= 100)
+                        var color = "FFA500";
+                    else 
+                        var color = "00FF00";
+                    marker[location.name].setIcon(new L.NumberedDivIcon({number: location.free, color: color}));
+                }
+            })
+        };
+
+    });
 
         L.NumberedDivIcon = L.Icon.extend({
             options: {

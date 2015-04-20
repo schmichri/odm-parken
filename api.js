@@ -1,6 +1,8 @@
 var cheerio = require('cheerio');
 var request = require('request');
+var http 	= require('http');
 var express = require('express');
+var WebSocketServer = require("ws").Server;
 var app 	= express();
 var geo 	= require('./geo.json');
 
@@ -9,7 +11,7 @@ var locs = Array();
 app.use(express.static('public'));
 
 app.get('/data.json', function (req, res) {
-  res.send(locs);
+	res.send(locs);
 });
 
 function getData(){
@@ -50,14 +52,33 @@ function getData(){
 getData();
 
 // Start Interval (5 mins)
-setInterval(getData, 300000);
+setInterval(getData, 60000);
+
 
 // Start express server
 var port = process.env.PORT || 3000;
-var server = app.listen(port, function () {
+var server = http.createServer(app)
+server.listen(port, function () {
 
-  var host = server.address().address;
+	var host = server.address().address;
 
-  console.log('App listening at http://%s:%s', "localhost", port);
+	console.log('App listening at http://%s:%s', "localhost", port);
 
 });
+
+// Start Websocket Setver
+var wss = new WebSocketServer({server: server})
+console.log("websocket server created")
+
+wss.on("connection", function(ws) {
+	var id = setInterval(function() {
+		ws.send(JSON.stringify(locs), function() {  });
+	}, 30000)
+
+	console.log("websocket connection open")
+
+	ws.on("close", function() {
+		console.log("websocket connection close")
+		clearInterval(id)
+	})
+})
