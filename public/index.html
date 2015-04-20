@@ -77,6 +77,7 @@
                     else 
                         var color = "00FF00";
                     marker[location.name].setIcon(new L.NumberedDivIcon({number: location.free, color: color}));
+                    marker[location.name].bindPopup('<h2>' + location.name + '</h2><p><b>Freie Plätze: </b> ' + location.free + '</p>');
                 }
             })
         };
